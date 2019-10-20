@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -8,22 +7,27 @@ class App extends Component {
     super();
 
     this.state = {
-      string: 'Hello Guilherme'
+      monsters: [
+   
+    ]
     }
   }
 
+  componentDidMount(){
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+
+    .then(users => this.setState({ monsters: users}))
+  }
+    
+  
 
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>{this.state.string}</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button onClick={() => this.setState({ string: "Deu certo"})}>Change Text</button>
+        {
+          this.state.monsters.map((monster) => <h1 key> {monster.id} {monster.name}</h1>)
+        }
       </div>
     );
   }
